@@ -42,6 +42,12 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private float _minRespawnTime = 0.3f;
     [SerializeField] private float _minDetectionArea = 1f;
 
+    [Header("** Audio Components **")]
+    [Space]
+    [SerializeField] private AudioClip _clickSound;
+    [SerializeField] private AudioClip _buttonSound;
+    [SerializeField] private AudioClip _backSound;
+
     [Header("** Variable **")]
     [Space]
     [SerializeField] private float _openFirstPanelSpeed;

@@ -899,6 +899,10 @@
       <Project>{4774fd26-405c-eb40-7d5b-431232bd9d09}</Project>
       <Name>Unity.VisualScripting.State.Player</Name>
     </ProjectReference>
+    <ProjectReference Include="Cinemachine.Player.csproj">
+      <Project>{df3508cf-6dc3-c1fd-86f1-63684f7993be}</Project>
+      <Name>Cinemachine.Player</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

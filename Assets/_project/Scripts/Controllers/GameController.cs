@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
     public SetGameSettingValue OnEnemyRespawnTimeChange;
     public SetGameSettingValue OnDetectionAreaChange;
 
+    public Action<AudioClip> OnplaySfx;
     public Action<float> OnAudioVolumeChange;
     public Action OnGoingToGame;
 
@@ -27,6 +28,7 @@ public class GameController : MonoBehaviour
     [Header("** Components **")]
     [Space]
     [SerializeField] private AudioMixer _audioMixer;
+    [SerializeField] private AudioSource _audioSource;
 
 
     private void Awake()
@@ -41,6 +43,7 @@ public class GameController : MonoBehaviour
         OnGameTimeChange += (value) => GameTime = value;
         OnEnemyRespawnTimeChange += (value) => RespawnTime = value;
         OnDetectionAreaChange += (value) => DetectionArea = value;
+        OnplaySfx += PlaySfx;
         OnAudioVolumeChange += SetVolumeHandler;
         OnGoingToGame += SaveGamePreferences;
     }
@@ -64,6 +67,11 @@ public class GameController : MonoBehaviour
         _audioMixer.SetFloat("Volume", value);
 
         PlayerPrefs.SetFloat("Volume", AudioVolume);
+    }
+
+    private void PlaySfx(AudioClip clip)
+    {
+        _audioSource.PlayOneShot(clip);
     }
 
     private void SaveGamePreferences()
