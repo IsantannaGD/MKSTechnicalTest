@@ -7,14 +7,23 @@ using UnityEngine.PlayerLoop;
 
 public class GameController : MonoBehaviour
 {
-    public delegate float SetGameSettingValue(float value);
+    private const string MainMenu = "MainMenu";
+    private const string PlayAgain = "GamePlay";
+    public delegate void SetGameSettingValue(float value);
     public SetGameSettingValue OnGameTimeChange;
     public SetGameSettingValue OnEnemyRespawnTimeChange;
     public SetGameSettingValue OnDetectionAreaChange;
+    public delegate void GameEvents(float value);
+    public GameEvents OnShootCannon;
+    public GameEvents OnShootArtillery;
+    public GameEvents OnKillEnemy;
+    public GameEvents OnPlayerGetDamage;
 
     public Action<AudioClip> OnplaySfx;
     public Action<float> OnAudioVolumeChange;
+    public Action<bool> OnGamePause;
     public Action OnGoingToGame;
+    public Action OnPlayerDead;
 
     public static GameController Instance;
 
@@ -25,11 +34,33 @@ public class GameController : MonoBehaviour
     [field: SerializeField] public float RespawnTime { get; private set; }
     [field: SerializeField] public float DetectionArea { get; private set; }
 
+    [field: SerializeField] public bool GamePaused { get; private set; }
+    [field: SerializeField] public bool GameFinished { get; private set; }
+
     [Header("** Components **")]
     [Space]
     [SerializeField] private AudioMixer _audioMixer;
     [SerializeField] private AudioSource _audioSource;
 
+    public void GamePause()
+    {
+        GamePaused = !GamePaused;
+        OnGamePause?.Invoke(GamePaused);
+
+        Time.timeScale = Time.timeScale == 0 ? 1 : 0;
+    }
+
+    public void PlayGameAgain()
+    {
+        GameFinished = false;
+        SceneLoaderController.Instance.LoadSceneWithLoading(PlayAgain);
+    }
+
+    public void ReturnToMenu()
+    {
+        GameFinished = false;
+        SceneLoaderController.Instance.LoadSceneWithLoading(MainMenu);
+    }
 
     private void Awake()
     {
@@ -43,6 +74,7 @@ public class GameController : MonoBehaviour
         OnGameTimeChange += (value) => GameTime = value;
         OnEnemyRespawnTimeChange += (value) => RespawnTime = value;
         OnDetectionAreaChange += (value) => DetectionArea = value;
+        OnPlayerDead += () => GameFinished = true;
         OnplaySfx += PlaySfx;
         OnAudioVolumeChange += SetVolumeHandler;
         OnGoingToGame += SaveGamePreferences;
@@ -56,6 +88,24 @@ public class GameController : MonoBehaviour
         DetectionArea = PlayerPrefs.GetFloat("DetectionArea", 2f);
 
         SetVolumeHandler(AudioVolume);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            GamePause();
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            OnKillEnemy?.Invoke(1f);
+        }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            OnPlayerDead?.Invoke();
+        }
     }
 
     private void SetVolumeHandler(float value)

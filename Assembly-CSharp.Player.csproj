@@ -46,6 +46,7 @@
     <Analyzer Include="D:\00 - Projetos Unity\MKS - Technical Test\Library\PackageCache\com.coimbrastudios.core@10.9.9\Coimbra.Services\Coimbra.Services.Roslyn.dll" />
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\_project\Scripts\Utilities\CoastLand.cs" />
      <Compile Include="Assets\_project\Scripts\Settings\AudioSettings.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
@@ -58,12 +59,14 @@
      <Compile Include="Assets\DOTween\Modules\DOTweenModulePhysics.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
+     <Compile Include="Assets\_project\Scripts\Interfaces\IPooledObject.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
      <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
      <Compile Include="Assets\_project\Scripts\Manager\LoadComponentsManager.cs" />
      <Compile Include="Assets\_project\Scripts\Controllers\SceneLoaderController.cs" />
+     <Compile Include="Assets\_project\Scripts\Player\Player.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
      <Compile Include="Assets\DOTween\Modules\DOTweenModuleEPOOutline.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
@@ -73,6 +76,7 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexColorCycler.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TeleType.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
+     <Compile Include="Assets\_project\Scripts\Utilities\ObjectPooler.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SkewTextExample.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\SimpleScript.cs" />
      <Compile Include="Assets\DOTween\Modules\DOTweenModuleUI.cs" />
@@ -80,6 +84,7 @@
      <Compile Include="Assets\_project\Scripts\Utilities\DontDestroyOnLoad.cs" />
      <Compile Include="Assets\DOTween\Modules\DOTweenModuleSprite.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
+     <Compile Include="Assets\_project\Scripts\Player\PlayerPhysics.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark04.cs" />
      <Compile Include="Assets\_project\Scripts\Settings\GraphicSettings.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
@@ -90,6 +95,7 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
+     <Compile Include="Assets\_project\Scripts\Utilities\CannonBall.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
      <Compile Include="Assets\_project\Scripts\Settings\LanguageSettings.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
@@ -98,6 +104,13 @@
      <Compile Include="Assets\_project\Scripts\Manager\LoadingSceneManager.cs" />
      <Compile Include="Assets\DOTween\Modules\DOTweenModulePhysics2D.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
+     <Compile Include="Assets\_project\Scripts\Manager\UIManager.cs" />
+     <Compile Include="Assets\_project\Scripts\Utilities\ShipCannon.cs" />
+     <Compile Include="Assets\_project\Scripts\Utilities\ArtilleryCannon.cs" />
+     <Compile Include="Assets\_project\Scripts\Utilities\ArtilleryCannonBall.cs" />
+     <Compile Include="Assets\_project\Scripts\Utilities\SingleCannonBall.cs" />
+     <Compile Include="Assets\_project\Scripts\Player\GeneralStatus.cs" />
+     <Compile Include="Assets\_project\Scripts\Interfaces\IDestroyableObject.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
@@ -771,6 +784,10 @@
       <Project>{d3bf863f-83df-5bb1-f036-e86b90d218d4}</Project>
       <Name>Coimbra.Services.PlayerLoopEvents.Player</Name>
     </ProjectReference>
+    <ProjectReference Include="Cinemachine.Player.csproj">
+      <Project>{df3508cf-6dc3-c1fd-86f1-63684f7993be}</Project>
+      <Name>Cinemachine.Player</Name>
+    </ProjectReference>
     <ProjectReference Include="Coimbra.Services.Timers.Player.csproj">
       <Project>{4e0d2928-ebd6-46e8-8082-191bc1baa926}</Project>
       <Name>Coimbra.Services.Timers.Player</Name>
@@ -898,10 +915,6 @@
     <ProjectReference Include="Unity.VisualScripting.State.Player.csproj">
       <Project>{4774fd26-405c-eb40-7d5b-431232bd9d09}</Project>
       <Name>Unity.VisualScripting.State.Player</Name>
-    </ProjectReference>
-    <ProjectReference Include="Cinemachine.Player.csproj">
-      <Project>{df3508cf-6dc3-c1fd-86f1-63684f7993be}</Project>
-      <Name>Cinemachine.Player</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

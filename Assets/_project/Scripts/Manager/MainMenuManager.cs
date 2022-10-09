@@ -35,7 +35,7 @@ public class MainMenuManager : MonoBehaviour
     [Header("** Components **")]
     [Space]
     [SerializeField] private GameObject _mainPanel;
-    [SerializeField] private float _maxGameTime = 5f;
+    [SerializeField] private float _maxGameTime = 3f;
     [SerializeField] private float _maxRespawnTime = 2f;
     [SerializeField] private float _maxDetectionArea = 4f;
     [SerializeField] private float _minGameTime = 1f;
