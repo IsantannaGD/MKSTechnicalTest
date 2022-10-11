@@ -17,7 +17,6 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private Image _cannonReloadingBar;
     [SerializeField] private Image _artilleryReloadingBar;
-    [SerializeField] private Image _healthBar;
     [SerializeField] private GameObject _pauseBG;
     [SerializeField] private GameObject _pausePopup;
     [SerializeField] private GameObject _gameOverBg;
@@ -26,7 +25,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button _exitGameButton;
     [SerializeField] private Button _playAgainButton;
     [SerializeField] private Button _returnToMenuButton;
-    [SerializeField] private TextMeshProUGUI _healthCounter;
     [SerializeField] private TextMeshProUGUI _bestScoreDisplayHUD;
     [SerializeField] private TextMeshProUGUI _currentScoreDisplayHUD;
     [SerializeField] private TextMeshProUGUI _bestScoreDisplayEndGame;
@@ -56,6 +54,8 @@ public class UIManager : MonoBehaviour
         _exitGameButton.onClick.AddListener(LeaveGame);
         _playAgainButton.onClick.AddListener(PlayAgainCallback);
         _returnToMenuButton.onClick.AddListener(GoToMainMenu);
+
+        GameController.Instance.OnGameStart?.Invoke();
     }
 
     private void CannonShootReloadingBar(float reloadTime)
@@ -66,14 +66,6 @@ public class UIManager : MonoBehaviour
     private void ArtilleryShootReloadingBar(float reloadTime)
     {
         _artilleryReloadingBar.DOFillAmount(1f, reloadTime).OnComplete(() => _artilleryReloadingBar.fillAmount = 0);
-    }
-
-    private void UpdatePlayerHealth(float value)
-    {
-        _healthCounter.text = value.ToString();
-
-        float fillAmount = 1f / 3 * value;
-        _healthBar.DOFillAmount(fillAmount, 0.5f);
     }
 
     private void ResumeGame()
@@ -154,7 +146,7 @@ return;
     {
         GameController.Instance.OnShootCannon += CannonShootReloadingBar;
         GameController.Instance.OnShootArtillery += ArtilleryShootReloadingBar;
-        GameController.Instance.OnPlayerGetDamage += UpdatePlayerHealth;
+        
         GameController.Instance.OnKillEnemy += UpdateScore;
         GameController.Instance.OnGamePause += PauseGame;
         GameController.Instance.OnPlayerDead += GameOverCallback;
@@ -164,7 +156,7 @@ return;
     {
         GameController.Instance.OnShootCannon -= CannonShootReloadingBar;
         GameController.Instance.OnShootArtillery -= ArtilleryShootReloadingBar;
-        GameController.Instance.OnPlayerGetDamage -= UpdatePlayerHealth;
+        
         GameController.Instance.OnKillEnemy -= UpdateScore;
         GameController.Instance.OnGamePause -= PauseGame;
         GameController.Instance.OnPlayerDead -= GameOverCallback;

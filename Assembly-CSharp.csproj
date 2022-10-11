@@ -50,6 +50,7 @@
      <Compile Include="Assets\_project\Scripts\Settings\AudioSettings.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_A.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeA.cs" />
+     <Compile Include="Assets\_project\Scripts\Interfaces\IDestroyableObject.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshProFloatingText.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\EnvMapAnimator.cs" />
@@ -57,11 +58,13 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\CameraController.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMPro_InstructionOverlay.cs" />
      <Compile Include="Assets\DOTween\Modules\DOTweenModulePhysics.cs" />
+     <Compile Include="Assets\_project\Scripts\Utilities\ArtilleryCannonBall.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_ExampleScript_01.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextConsoleSimulator.cs" />
      <Compile Include="Assets\_project\Scripts\Interfaces\IPooledObject.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextInfoDebugTool.cs" />
      <Compile Include="Assets\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
+     <Compile Include="Assets\_project\Scripts\Utilities\ShipCannon.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_DigitValidator.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TextMeshSpawner.cs" />
      <Compile Include="Assets\_project\Scripts\Manager\LoadComponentsManager.cs" />
@@ -70,6 +73,7 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexJitter.cs" />
      <Compile Include="Assets\DOTween\Modules\DOTweenModuleEPOOutline.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventHandler.cs" />
+     <Compile Include="Assets\_project\Scripts\Utilities\SingleCannonBall.cs" />
      <Compile Include="Assets\DOTween\Modules\DOTweenModuleUtils.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\DropdownSample.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_PhoneNumberValidator.cs" />
@@ -90,6 +94,7 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ChatController.cs" />
      <Compile Include="Assets\_project\Scripts\Controllers\GameController.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_UiFrameRateCounter.cs" />
+     <Compile Include="Assets\_project\Scripts\Utilities\ArtilleryCannon.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
@@ -99,20 +104,25 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
      <Compile Include="Assets\_project\Scripts\Settings\LanguageSettings.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
+     <Compile Include="Assets\_project\Scripts\Player\GeneralStatus.cs" />
      <Compile Include="Assets\_project\Scripts\Manager\MainMenuManager.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextSelector_B.cs" />
      <Compile Include="Assets\_project\Scripts\Manager\LoadingSceneManager.cs" />
      <Compile Include="Assets\DOTween\Modules\DOTweenModulePhysics2D.cs" />
-     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
      <Compile Include="Assets\_project\Scripts\Manager\UIManager.cs" />
-     <Compile Include="Assets\_project\Scripts\Utilities\ShipCannon.cs" />
-     <Compile Include="Assets\_project\Scripts\Utilities\ArtilleryCannon.cs" />
-     <Compile Include="Assets\_project\Scripts\Utilities\ArtilleryCannonBall.cs" />
-     <Compile Include="Assets\_project\Scripts\Utilities\SingleCannonBall.cs" />
-     <Compile Include="Assets\_project\Scripts\Player\GeneralStatus.cs" />
-     <Compile Include="Assets\_project\Scripts\Interfaces\IDestroyableObject.cs" />
+     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
+     <Compile Include="Assets\_project\Scripts\Enum\CannonBallOwnerType.cs" />
+     <Compile Include="Assets\_project\Scripts\Player\PlayerAnimator.cs" />
+     <Compile Include="Assets\_project\Scripts\Utilities\FollowTarget.cs" />
+     <Compile Include="Assets\_project\Scripts\Enemy\Enemy.cs" />
+     <Compile Include="Assets\_project\Scripts\Enemy\ShooterEnemy.cs" />
+     <Compile Include="Assets\_project\Scripts\Enemy\ChaserEnemy.cs" />
+     <Compile Include="Assets\_project\Scripts\Utilities\DetectionArea.cs" />
+     <Compile Include="Assets\_project\Scripts\Utilities\EnemySingleCannon.cs" />
+     <Compile Include="Assets\_project\Scripts\Utilities\Spawner.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
+     <None Include="Assets\_project\NavMeshPlus-master\package.json" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
      <None Include="Assets\DOTween\readme.txt" />
      <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald-Bold - OFL.txt" />
@@ -1134,6 +1144,14 @@
     <ProjectReference Include="Unity.VisualScripting.State.csproj">
       <Project>{eab60561-7349-b531-9206-0ddc2bb8f4d0}</Project>
       <Name>Unity.VisualScripting.State</Name>
+    </ProjectReference>
+    <ProjectReference Include="NavMeshComponents.csproj">
+      <Project>{5ee86c51-b184-fbaf-475a-b709c9f42de2}</Project>
+      <Name>NavMeshComponents</Name>
+    </ProjectReference>
+    <ProjectReference Include="NavMeshComponentsEditor.csproj">
+      <Project>{f714581e-de0c-9b14-c15f-d20bca5cdcad}</Project>
+      <Name>NavMeshComponentsEditor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

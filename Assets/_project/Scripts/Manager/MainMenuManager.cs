@@ -21,9 +21,6 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private Button _respawnTimePlus;
     [SerializeField] private Button _respawnTimeLess;
     [SerializeField] private TMP_InputField _respawnTimeInputField;
-    [SerializeField] private Button _detectionAreaPlus;
-    [SerializeField] private Button _detectionAreaLess;
-    [SerializeField] private TMP_InputField _detectionAreaInputField;
 
     [Header("** Buttons **")]
     [Space]
@@ -36,11 +33,9 @@ public class MainMenuManager : MonoBehaviour
     [Space]
     [SerializeField] private GameObject _mainPanel;
     [SerializeField] private float _maxGameTime = 3f;
-    [SerializeField] private float _maxRespawnTime = 2f;
-    [SerializeField] private float _maxDetectionArea = 4f;
+    [SerializeField] private float _maxRespawnTime = 6f;
     [SerializeField] private float _minGameTime = 1f;
-    [SerializeField] private float _minRespawnTime = 0.3f;
-    [SerializeField] private float _minDetectionArea = 1f;
+    [SerializeField] private float _minRespawnTime = 2f;
 
     [Header("** Audio Components **")]
     [Space]
@@ -55,7 +50,6 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private float _audioVolume;
     [SerializeField] private float _gameTime;
     [SerializeField] private float _respawnTime;
-    [SerializeField] private float _detectionArea;
 
     private void Start()
     {
@@ -77,10 +71,6 @@ public class MainMenuManager : MonoBehaviour
         _respawnTimeInputField.onSubmit.AddListener(ChangeRespawnTimeInInputField);
         _respawnTimePlus.onClick.AddListener(IncreaseRespawnTime);
         _respawnTimeLess.onClick.AddListener(DecreaseRespawnTime);
-
-        _detectionAreaInputField.onSubmit.AddListener(ChangeDetectionAreaInInputField);
-        _detectionAreaPlus.onClick.AddListener(IncreaseDetectionArea);
-        _detectionAreaLess.onClick.AddListener(DecreaseDetectionArea);
     }
 
     private void Initializations()
@@ -88,12 +78,10 @@ public class MainMenuManager : MonoBehaviour
         _audioVolume = GameController.Instance.AudioVolume;
         _gameTime = GameController.Instance.GameTime;
         _respawnTime = GameController.Instance.RespawnTime;
-        _detectionArea = GameController.Instance.DetectionArea;
 
         _audioBar.value = _audioVolume;
         _gameTimeInputField.text = _gameTime.ToString();
         _respawnTimeInputField.text = _respawnTime.ToString();
-        _detectionAreaInputField.text = _detectionArea.ToString();
     }
 
     private void PlayGameHandler()
@@ -264,56 +252,5 @@ return;
         _respawnTimeInputField.text = _respawnTime.ToString();
 
         GameController.Instance.OnEnemyRespawnTimeChange?.Invoke(_respawnTime);
-    }
-
-    private void ChangeDetectionAreaInInputField(string valueAsString)
-    {
-        float updatedValueForm = float.Parse(valueAsString);
-
-        if (updatedValueForm > _maxDetectionArea)
-        {
-            updatedValueForm = _maxDetectionArea;
-            _detectionAreaInputField.text = updatedValueForm.ToString();
-        }
-
-        if (updatedValueForm < _minDetectionArea)
-        {
-            updatedValueForm = _minDetectionArea;
-            _detectionAreaInputField.text = updatedValueForm.ToString();
-        }
-
-        _detectionArea = updatedValueForm;
-
-        GameController.Instance.OnDetectionAreaChange?.Invoke(_detectionArea);
-    }
-
-    private void IncreaseDetectionArea()
-    {
-        if (_detectionArea >= _maxDetectionArea)
-        {
-            return;
-        }
-
-        _detectionArea += 0.5f;
-        if (_detectionArea > _maxDetectionArea) _detectionArea = _maxDetectionArea;
-
-        _detectionAreaInputField.text = _detectionArea.ToString();
-
-        GameController.Instance.OnDetectionAreaChange?.Invoke(_detectionArea);
-    }
-
-    private void DecreaseDetectionArea()
-    {
-        if (_detectionArea <= _minDetectionArea)
-        {
-            return;
-        }
-
-        _detectionArea -= 0.5f;
-        if (_detectionArea < _minDetectionArea) _detectionArea = _minDetectionArea;
-
-        _detectionAreaInputField.text = _detectionArea.ToString();
-
-        GameController.Instance.OnDetectionAreaChange?.Invoke(_detectionArea);
     }
 }

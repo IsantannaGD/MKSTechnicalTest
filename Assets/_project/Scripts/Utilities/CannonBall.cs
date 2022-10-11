@@ -16,6 +16,7 @@ public abstract class CannonBall : MonoBehaviour, IPooledObject
     [SerializeField] private AudioClip _shootSound;
     [SerializeField] private Vector3 _moveDirection;
     [SerializeField] protected CannonBallMovementDirectionType movementDirectionType;
+    [SerializeField] protected CannonBallOwnerType ownerType;
 
     [Header("** Variable **")]
     [Space]
@@ -35,8 +36,13 @@ public abstract class CannonBall : MonoBehaviour, IPooledObject
 
     protected void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.TryGetComponent(out IDestroyableObject target))
+        if (col.gameObject.transform.parent.TryGetComponent(out IDestroyableObject target))
         {
+            if (ownerType == target.Owner())
+            {
+                return;
+            }
+
             target.GetDamage(_damage);
             ObjectPooler.Instance.ReturnToPool(TagString(), gameObject);
         }

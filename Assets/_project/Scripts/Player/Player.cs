@@ -13,6 +13,7 @@ public class Player : MonoBehaviour, IDestroyableObject
     [Space]
 
     public PlayerPhysics physics;
+    public PlayerAnimator anim;
     public GeneralStatus status;
 
     [Header("** Variable **")]
@@ -24,6 +25,19 @@ public class Player : MonoBehaviour, IDestroyableObject
     [SerializeField] private bool _isAlive = false;
     [SerializeField] private bool _cannonReloading;
     [SerializeField] private bool _artilleryReloading;
+
+    public void GetDamage(float damage)
+    {
+        _playerHealth -= damage;
+
+        GameController.Instance.OnPlayerGetDamage?.Invoke(_playerHealth);
+        CheckPlayerHealth();
+    }
+
+    public CannonBallOwnerType Owner()
+    {
+        return CannonBallOwnerType.Player;
+    }
 
     private void Start()
     {
@@ -80,14 +94,6 @@ public class Player : MonoBehaviour, IDestroyableObject
         GameController.Instance.OnShootArtillery?.Invoke(_artilleryReloadTime);
         yield return new WaitForSeconds(_artilleryReloadTime);
         _artilleryReloading = false;
-    }
-
-    public void GetDamage(float damage)
-    {
-        _playerHealth -= damage;
-
-        GameController.Instance.OnPlayerGetDamage?.Invoke(_playerHealth);
-        CheckPlayerHealth();
     }
 
     private void CheckPlayerHealth()

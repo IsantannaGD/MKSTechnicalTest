@@ -100,7 +100,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shootSound: {fileID: 0}
   _moveDirection: {x: 0, y: 0, z: 0}
-  movementDirectionType: 2
+  movementDirectionType: 3
+  ownerType: 0
   _movementSpeed: 4
   _timeToAutomaticReturn: 3.5
   _damage: 1

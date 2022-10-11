@@ -12,7 +12,6 @@ public class GameController : MonoBehaviour
     public delegate void SetGameSettingValue(float value);
     public SetGameSettingValue OnGameTimeChange;
     public SetGameSettingValue OnEnemyRespawnTimeChange;
-    public SetGameSettingValue OnDetectionAreaChange;
     public delegate void GameEvents(float value);
     public GameEvents OnShootCannon;
     public GameEvents OnShootArtillery;
@@ -23,6 +22,7 @@ public class GameController : MonoBehaviour
     public Action<float> OnAudioVolumeChange;
     public Action<bool> OnGamePause;
     public Action OnGoingToGame;
+    public Action OnGameStart;
     public Action OnPlayerDead;
 
     public static GameController Instance;
@@ -32,8 +32,6 @@ public class GameController : MonoBehaviour
     [field: SerializeField] public float AudioVolume { get; private set; }
     [field: SerializeField] public float GameTime { get; private set; }
     [field: SerializeField] public float RespawnTime { get; private set; }
-    [field: SerializeField] public float DetectionArea { get; private set; }
-
     [field: SerializeField] public bool GamePaused { get; private set; }
     [field: SerializeField] public bool GameFinished { get; private set; }
 
@@ -73,10 +71,10 @@ public class GameController : MonoBehaviour
 
         OnGameTimeChange += (value) => GameTime = value;
         OnEnemyRespawnTimeChange += (value) => RespawnTime = value;
-        OnDetectionAreaChange += (value) => DetectionArea = value;
         OnPlayerDead += () => GameFinished = true;
         OnplaySfx += PlaySfx;
         OnAudioVolumeChange += SetVolumeHandler;
+        OnGameStart += GameStart;
         OnGoingToGame += SaveGamePreferences;
     }
 
@@ -85,7 +83,6 @@ public class GameController : MonoBehaviour
         AudioVolume = PlayerPrefs.GetFloat("Volume", 0.8f);
         GameTime = PlayerPrefs.GetFloat("GameTime", 2f);
         RespawnTime = PlayerPrefs.GetFloat("RespawnTime", 0.5f);
-        DetectionArea = PlayerPrefs.GetFloat("DetectionArea", 2f);
 
         SetVolumeHandler(AudioVolume);
     }
@@ -97,6 +94,8 @@ public class GameController : MonoBehaviour
             GamePause();
         }
 
+#if UNITY_EDITOR
+
         if (Input.GetKeyDown(KeyCode.T))
         {
             OnKillEnemy?.Invoke(1f);
@@ -106,6 +105,7 @@ public class GameController : MonoBehaviour
         {
             OnPlayerDead?.Invoke();
         }
+#endif
     }
 
     private void SetVolumeHandler(float value)
@@ -128,6 +128,17 @@ public class GameController : MonoBehaviour
     {
         PlayerPrefs.SetFloat("GameTime", GameTime);
         PlayerPrefs.SetFloat("RespawnTime", RespawnTime);
-        PlayerPrefs.SetFloat("DetectionArea", DetectionArea);
+    }
+
+    private void GameStart()
+    {
+        StartCoroutine(GameLoop());
+    }
+
+    private IEnumerator GameLoop()
+    {
+        yield return new WaitForSeconds(GameTime * 60);
+
+        OnPlayerDead?.Invoke();
     }
 }
