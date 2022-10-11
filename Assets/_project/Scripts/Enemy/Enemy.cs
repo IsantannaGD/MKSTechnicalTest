@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public abstract class Enemy : MonoBehaviour, IDestroyableObject, IPooledObject
@@ -22,6 +23,9 @@ public abstract class Enemy : MonoBehaviour, IDestroyableObject, IPooledObject
     [SerializeField] protected DetectionArea _detector;
     [SerializeField] protected List<Transform> _patrolPoints;
     [SerializeField] protected Transform _target;
+    [SerializeField] protected SpriteRenderer _shipSprite;
+    [SerializeField] protected Sprite[] _shipCondition;
+    [SerializeField] protected Image _healthBar;
 
     [Header("** Variable **")]
     [Space]
@@ -30,6 +34,7 @@ public abstract class Enemy : MonoBehaviour, IDestroyableObject, IPooledObject
     [SerializeField] protected Vector3 _direction;
     [SerializeField] protected int _patrolPointsCounter;
     [SerializeField] protected float _health;
+    [SerializeField] protected int _healthCounter;
     [SerializeField] protected float _moveSpeed;
     [SerializeField] protected float _fireRate;
     [SerializeField] protected float _rotationSpeed;
@@ -79,8 +84,13 @@ public abstract class Enemy : MonoBehaviour, IDestroyableObject, IPooledObject
         SingleInitialization();
     }
 
-    private void Update()
+    protected virtual void Update()
     {
+        if (GameController.Instance.GameFinished || GameController.Instance.GamePaused)
+        {
+            return;
+        }
+
         if (_fire)
         {
            _direction = (_target.position - _enemyAgent.transform.position).normalized;
@@ -95,7 +105,7 @@ public abstract class Enemy : MonoBehaviour, IDestroyableObject, IPooledObject
         _enemyAgent.transform.Rotate(0f,0f, resultAngle * _rotationSpeed * Time.deltaTime);
     }
 
-    private void LateUpdate()
+    protected virtual void LateUpdate()
     {
         if (_fire)
         {
@@ -124,12 +134,6 @@ public abstract class Enemy : MonoBehaviour, IDestroyableObject, IPooledObject
         _moveSpeed = _status.MovementSpeed;
         _rotationSpeed = _status.RotationSpeed;
 
-        _detector.OnPlayerDetected += (target, value) =>
-        {
-            _target = target;
-            _fire = value;
-        };
-
         _enemyAgent.updateRotation = false;
         _enemyAgent.updateUpAxis = false;
         _enemyAgent.speed = _moveSpeed;
@@ -140,10 +144,24 @@ public abstract class Enemy : MonoBehaviour, IDestroyableObject, IPooledObject
 
     private void CheckHealth()
     {
-        if (_health >= 0)
+        float fillAmount = 1f / _status.MaxHealth * _health;
+        _healthBar.DOFillAmount(fillAmount, 0.5f);
+        _healthCounter++;
+
+        if (_health <= 0)
         {
             GameController.Instance.OnKillEnemy.Invoke(_scoreValue);
+            ObjectPooler.Instance.SpawnFromPoolWithReturn("DeathExplosion", _enemyAgent.transform.position,
+                Quaternion.identity);
             ObjectPooler.Instance.ReturnToPool(EnemyType(), gameObject);
+            return;
         }
+
+        ChangeSpriteShip();
+    }
+
+    private void ChangeSpriteShip()
+    {
+        _shipSprite.sprite = _shipCondition[_healthCounter];
     }
 }

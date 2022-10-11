@@ -86,12 +86,15 @@ public class MainMenuManager : MonoBehaviour
 
     private void PlayGameHandler()
     {
+        ButtonSound();
         GameController.Instance.OnGoingToGame?.Invoke();
         SceneLoaderController.Instance.LoadSceneWithLoading(GameScene);
     }
 
     private void ExitGame()
     {
+
+        BackSound();
 #if UNITY_EDITOR
 
 UnityEditor.EditorApplication.isPlaying = false;        
@@ -103,6 +106,8 @@ return;
 
     private void MainPanelInteractionAnim()
     {
+        ButtonSound();
+
         if (!_mainPanel.activeSelf)
         {
             _mainPanel.SetActive(true);
@@ -136,6 +141,7 @@ return;
         _audioVolume += 10f;
         _audioBar.value = _audioVolume;
 
+        ClickSound();
         GameController.Instance.OnAudioVolumeChange?.Invoke(_audioVolume);
     }
 
@@ -148,7 +154,8 @@ return;
 
         _audioVolume -= 10f;
         _audioBar.value = _audioVolume;
-
+        
+        BackSound();
         GameController.Instance.OnAudioVolumeChange?.Invoke(_audioVolume);
     }
 
@@ -185,6 +192,7 @@ return;
         
         _gameTimeInputField.text = _gameTime.ToString();
 
+        ClickSound();
         GameController.Instance.OnGameTimeChange?.Invoke(_gameTime);
     }
 
@@ -200,6 +208,7 @@ return;
         
         _gameTimeInputField.text = _gameTime.ToString();
 
+        BackSound();
         GameController.Instance.OnGameTimeChange?.Invoke(_gameTime); 
     }
 
@@ -235,7 +244,8 @@ return;
         if (_respawnTime > _maxRespawnTime) _respawnTime = _maxRespawnTime;
 
         _respawnTimeInputField.text = _respawnTime.ToString();
-
+        
+        ClickSound();
         GameController.Instance.OnEnemyRespawnTimeChange?.Invoke(_respawnTime);
     }
 
@@ -251,6 +261,22 @@ return;
 
         _respawnTimeInputField.text = _respawnTime.ToString();
 
+        BackSound();
         GameController.Instance.OnEnemyRespawnTimeChange?.Invoke(_respawnTime);
+    }
+
+    private void ButtonSound()
+    {
+        GameController.Instance.OnplaySfx(_buttonSound, 1f);
+    }
+
+    private void ClickSound()
+    {
+        GameController.Instance.OnplaySfx(_clickSound, 1f);
+    }
+
+    private void BackSound()
+    {
+        GameController.Instance.OnplaySfx(_backSound, 1f);
     }
 }

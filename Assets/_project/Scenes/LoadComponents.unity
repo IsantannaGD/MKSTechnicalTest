@@ -325,9 +325,10 @@ MonoBehaviour:
   <AudioVolume>k__BackingField: 1
   <GameTime>k__BackingField: 2
   <RespawnTime>k__BackingField: 0.5
-  <DetectionArea>k__BackingField: 3
+  <GamePaused>k__BackingField: 0
+  <GameFinished>k__BackingField: 0
   _audioMixer: {fileID: 24100000, guid: 5c1c19d0b1c333445bc84f99e455d6fb, type: 2}
-  _audioSource: {fileID: 0}
+  _audioSource: {fileID: 1153385327}
 --- !u!82 &1153385327
 AudioSource:
   m_ObjectHideFlags: 0
@@ -337,11 +338,11 @@ AudioSource:
   m_GameObject: {fileID: 1153385324}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300002, guid: 5c1c19d0b1c333445bc84f99e455d6fb, type: 2}
+  OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
+  m_Volume: 0.2
+  m_Pitch: 1.5
   Loop: 0
   Mute: 0
   Spatialize: 0

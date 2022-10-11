@@ -98,7 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e44198992addd874eb917f87df17eaca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shootSound: {fileID: 0}
+  _shootSound: {fileID: 8300000, guid: 34bb2073c99ccca4b9184a7d0211080a, type: 3}
+  _explosionSound: {fileID: 8300000, guid: 4892a545f04a1624aa4afa70f0605f1c, type: 3}
   _moveDirection: {x: 0, y: 0, z: 0}
   movementDirectionType: 3
   ownerType: 0

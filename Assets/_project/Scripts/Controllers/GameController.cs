@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour
 {
     private const string MainMenu = "MainMenu";
     private const string PlayAgain = "GamePlay";
+    
     public delegate void SetGameSettingValue(float value);
     public SetGameSettingValue OnGameTimeChange;
     public SetGameSettingValue OnEnemyRespawnTimeChange;
@@ -18,7 +19,7 @@ public class GameController : MonoBehaviour
     public GameEvents OnKillEnemy;
     public GameEvents OnPlayerGetDamage;
 
-    public Action<AudioClip> OnplaySfx;
+    public Action<AudioClip, float> OnplaySfx;
     public Action<float> OnAudioVolumeChange;
     public Action<bool> OnGamePause;
     public Action OnGoingToGame;
@@ -51,6 +52,7 @@ public class GameController : MonoBehaviour
     public void PlayGameAgain()
     {
         GameFinished = false;
+        StopCoroutine(GameLoop());
         SceneLoaderController.Instance.LoadSceneWithLoading(PlayAgain);
     }
 
@@ -119,8 +121,9 @@ public class GameController : MonoBehaviour
         PlayerPrefs.SetFloat("Volume", AudioVolume);
     }
 
-    private void PlaySfx(AudioClip clip)
+    private void PlaySfx(AudioClip clip, float value = 1.5f)
     {
+        _audioSource.pitch = value;
         _audioSource.PlayOneShot(clip);
     }
 

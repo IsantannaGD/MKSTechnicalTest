@@ -14,6 +14,7 @@ public abstract class CannonBall : MonoBehaviour, IPooledObject
     [Space]
 
     [SerializeField] private AudioClip _shootSound;
+    [SerializeField] private AudioClip _explosionSound;
     [SerializeField] private Vector3 _moveDirection;
     [SerializeField] protected CannonBallMovementDirectionType movementDirectionType;
     [SerializeField] protected CannonBallOwnerType ownerType;
@@ -28,7 +29,7 @@ public abstract class CannonBall : MonoBehaviour, IPooledObject
 
     public void OnObjectSpawn()
     {
-        GameController.Instance.OnplaySfx(_shootSound);
+        GameController.Instance.OnplaySfx(_shootSound, 1.5f);
         StartCoroutine(ObjectPooler.Instance.ReturnToPoolAfterSeconds(TagString(), this.gameObject, _timeToAutomaticReturn));
     }
 
@@ -44,6 +45,8 @@ public abstract class CannonBall : MonoBehaviour, IPooledObject
             }
 
             target.GetDamage(_damage);
+            GameController.Instance.OnplaySfx(_explosionSound, 1f);
+            ObjectPooler.Instance.SpawnFromPoolWithReturn("Explosion", col.gameObject.transform.position, Quaternion.identity);
             ObjectPooler.Instance.ReturnToPool(TagString(), gameObject);
         }
     }
