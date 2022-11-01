@@ -104,12 +104,14 @@
      <Compile Include="Assets\_project\Scripts\Utilities\ArtilleryCannon.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ObjectSpin.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_TextEventCheck.cs" />
+     <Compile Include="Assets\_project\Scripts\Utilities\ChaserCollisionDetector.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\ShaderPropAnimator.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
      <Compile Include="Assets\_project\Scripts\Utilities\CannonBall.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark03.cs" />
      <Compile Include="Assets\_project\Scripts\Settings\LanguageSettings.cs" />
+     <Compile Include="Assets\_project\Scripts\Utilities\SpawnReturner.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\TMP_FrameRateCounter.cs" />
      <Compile Include="Assets\_project\Scripts\Player\GeneralStatus.cs" />
      <Compile Include="Assets\_project\Scripts\Manager\MainMenuManager.cs" />
@@ -120,10 +122,7 @@
      <Compile Include="Assets\_project\Scripts\Manager\UIManager.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
      <Compile Include="Assets\_project\Scripts\Enemy\Enemy.cs" />
-     <Compile Include="Assets\_project\Scripts\Utilities\SpawnReturner.cs" />
-     <Compile Include="Assets\_project\Scripts\Utilities\ChaserCollisionDetector.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
-     <None Include="Assets\AddressableAssetsData\link.xml" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\_project\NavMeshPlus-master\package.json" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
